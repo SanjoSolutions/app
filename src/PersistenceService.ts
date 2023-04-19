@@ -1,4 +1,4 @@
-import { determineLocalStorageKey } from './determineLocalStorageKey.js'
+import { determineLocalStorageKey } from './determineLocalStorageKey.ts'
 
 export class PersistenceService {
   loadBox(id) {

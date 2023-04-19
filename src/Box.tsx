@@ -1,6 +1,6 @@
 import { Component, createRef } from 'react'
 import './Box.css'
-import { zIndexService } from './services.js'
+import { zIndexService } from './services.ts'
 import { makeMovable } from './unnamed/makeMovable.js'
 
 export class Box extends Component {

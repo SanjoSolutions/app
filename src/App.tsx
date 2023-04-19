@@ -1,8 +1,7 @@
 import { useCallback, useState } from 'react'
 import './App.css'
-import { Box } from './Box.js'
-import { determineLocalStorageKey } from './determineLocalStorageKey.js'
-import { zIndexService, persistenceService } from './services.js'
+import { Box } from './Box.tsx'
+import { persistenceService, zIndexService } from './services.ts'
 
 const defaultBoxes = [
   {
