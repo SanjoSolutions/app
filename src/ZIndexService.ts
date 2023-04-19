@@ -1,14 +1,14 @@
 export class ZIndexService {
   #nextZIndex: number
 
-  constructor(initialZIndex) {
-    this.nextZIndex = initialZIndex || 1
+  constructor(initialZIndex: number = 1) {
+    this.#nextZIndex = initialZIndex
   }
 
   receiveNextZIndex(): number {
-    const zIndex = this.nextZIndex
-    this.nextZIndex++
-    localStorage.setItem('nextZIndex', this.nextZIndex)
+    const zIndex = this.#nextZIndex
+    this.#nextZIndex++
+    localStorage.setItem('nextZIndex', String(this.#nextZIndex))
     return zIndex
   }
 }

@@ -1,12 +1,12 @@
 import { Component, createRef } from 'react'
 import './Box.css'
-import { zIndexService } from './services.ts'
+import { zIndexService } from './services.js'
 import { makeMovable } from './unnamed/makeMovable.js'
-import type { Box as BoxInterface } from './Box.ts'
+import type { Box as BoxInterface } from './core/Box.js'
 
 interface BoxProps {
   box: BoxInterface
-  onChange: (box: Box) => void
+  onChange: (box: BoxInterface) => void
 }
 
 interface BoxState {
@@ -14,7 +14,8 @@ interface BoxState {
 }
 
 export class Box extends Component<BoxProps, BoxState> {
-  ref = createRef()
+  ref = createRef<HTMLDivElement>()
+  removeEventListeners: (() => void) | null = null
 
   componentDidMount() {
     const element = this.ref.current
@@ -31,12 +32,12 @@ export class Box extends Component<BoxProps, BoxState> {
         if (this.props.onChange) {
           this.props.onChange({
             ...this.props.box,
-            x: element.offsetLeft,
-            y: element.offsetTop,
+            x: element!.offsetLeft,
+            y: element!.offsetTop,
           })
         }
       },
-    })
+    } as any)
   }
 
   render() {

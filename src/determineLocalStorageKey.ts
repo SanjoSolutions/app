@@ -1,3 +1,3 @@
-export function determineLocalStorageKey(id) {
+export function determineLocalStorageKey(id: string): string {
   return `box-${ id }`
 }

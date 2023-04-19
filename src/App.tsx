@@ -1,8 +1,8 @@
 import { useCallback, useState } from 'react'
 import './App.css'
-import type { Box as BoxInterface } from './Box.ts'
-import { Box } from './Box.tsx'
-import { persistenceService, zIndexService } from './services.ts'
+import type { Box as BoxInterface } from './core/Box.js'
+import { Box } from './Box.jsx'
+import { persistenceService } from './services.js'
 
 const defaultBoxes: BoxInterface[] = [
   {
@@ -10,37 +10,21 @@ const defaultBoxes: BoxInterface[] = [
     color: '#156e0c',
     x: '0.5rem',
     y: '0.5rem',
+    zIndex: 0
   },
   {
     id: '1',
     color: '#6ab1eb',
     x: 300,
     y: 300,
+    zIndex: 0
   },
 ]
 
 function App() {
   const [boxes, setBoxes] = useState<BoxInterface[]>(() => {
     const boxes = defaultBoxes.map(box => {
-      const info = persistenceService.loadBox(box.id)
-      let x
-      let y
-      let zIndex
-      if (info) {
-        x = info.x
-        y = info.y
-        zIndex = info.zIndex
-      } else {
-        x = box.x
-        y = box.y
-        zIndex = zIndexService.receiveNextZIndex()
-      }
-      return {
-        ...box,
-        x,
-        y,
-        zIndex,
-      }
+      return persistenceService.loadBox(box.id) || { ...box }
     })
     return boxes
   })
