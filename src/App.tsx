@@ -1,25 +1,25 @@
 import { useCallback, useState } from 'react'
 import './App.css'
-import { Box } from './Box.tsx'
+import type { Box } from './Box.tsx'
 import { persistenceService, zIndexService } from './services.ts'
 
-const defaultBoxes = [
+const defaultBoxes: Box[] = [
   {
-    id: 0,
-    color: 'gray',
+    id: '0',
+    color: '#156e0c',
     x: '0.5rem',
     y: '0.5rem',
   },
   {
-    id: 1,
-    color: 'blue',
+    id: '1',
+    color: '#6ab1eb',
     x: 300,
     y: 300,
   },
 ]
 
 function App() {
-  const [boxes, setBoxes] = useState(() => {
+  const [boxes, setBoxes] = useState<Box[]>(() => {
     const boxes = defaultBoxes.map(box => {
       const info = persistenceService.loadBox(box.id)
       let x
@@ -45,7 +45,7 @@ function App() {
   })
 
   const onChange = useCallback(
-    function onChange(box) {
+    function onChange(box: Box) {
       persistenceService.saveBox(box)
 
       const updatedBoxes = Array.from(boxes)

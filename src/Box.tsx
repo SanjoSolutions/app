@@ -2,8 +2,18 @@ import { Component, createRef } from 'react'
 import './Box.css'
 import { zIndexService } from './services.ts'
 import { makeMovable } from './unnamed/makeMovable.js'
+import type { Box as BoxInterface } from './Box.ts'
 
-export class Box extends Component {
+interface BoxProps {
+  box: BoxInterface
+  onChange: (box: Box) => void
+}
+
+interface BoxState {
+
+}
+
+export class Box extends Component<BoxProps, BoxState> {
   ref = createRef()
 
   componentDidMount() {

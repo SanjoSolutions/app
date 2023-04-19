@@ -1,7 +1,7 @@
 import { determineLocalStorageKey } from './determineLocalStorageKey.ts'
 
 export class PersistenceService {
-  loadBox(id) {
+  loadBox(id: string): Box | null {
     const serializedInfo = localStorage.getItem(determineLocalStorageKey(id))
     if (serializedInfo) {
       const info = JSON.parse(serializedInfo)
@@ -11,7 +11,7 @@ export class PersistenceService {
     }
   }
 
-  saveBox(box) {
+  saveBox(box: Box): void {
     localStorage.setItem(
       determineLocalStorageKey(box.id),
       JSON.stringify(box),

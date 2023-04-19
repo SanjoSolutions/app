@@ -4,8 +4,3 @@
   border: 1px solid black;
   cursor: pointer;
 }
-
-.box:hover {
-  scale: 1.2;
-  z-index: 99999999999 !important;
-}
