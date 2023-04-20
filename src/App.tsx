@@ -51,7 +51,7 @@ function App() {
       const box = {
         id: String(nextID++),
         color: '#156e0c',
-        x: 'calc(48px + 0.5rem)',
+        x: 'calc(4.5rem + 0.5rem)',
         y: '0.5rem',
         zIndex: 0
       }
