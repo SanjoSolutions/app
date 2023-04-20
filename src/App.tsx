@@ -66,10 +66,10 @@ function App() {
   )
 
   return (
-    <div>
+    <main className="d-flex flex-nowrap" style={{height: '100vh'}}>
       <Navigation addBox={addBox} />
       { boxes.map(box => <Box key={ box.id } box={ box } onChange={ onChange } />) }
-    </div>
+    </main>
   )
 }
 
