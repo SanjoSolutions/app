@@ -1,21 +1,17 @@
-import { determineLocalStorageKey } from './determineLocalStorageKey.js'
 import type { Box } from './core/Box.js'
 
 export class PersistenceService {
-  loadBox(id: string): Box | null {
-    const serializedInfo = localStorage.getItem(determineLocalStorageKey(id))
+  loadBoxes(): Box[] {
+    const serializedInfo = localStorage.getItem('boxes')
     if (serializedInfo) {
       const info = JSON.parse(serializedInfo)
       return info
     } else {
-      return null
+      return []
     }
   }
 
-  saveBox(box: Box): void {
-    localStorage.setItem(
-      determineLocalStorageKey(box.id),
-      JSON.stringify(box),
-    )
+  saveBoxes(boxes: Box[]): void {
+    localStorage.setItem('boxes', JSON.stringify(boxes))
   }
 }
