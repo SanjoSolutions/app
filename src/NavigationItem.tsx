@@ -1,4 +1,4 @@
-import './NavigationItem.css'
+import "./NavigationItem.css"
 
 interface NavigationItemProps {
   icon: string
@@ -8,7 +8,7 @@ interface NavigationItemProps {
 export function NavigationItem({ icon, onClick }: NavigationItemProps) {
   return (
     <div className="navigation-item" onClick={onClick}>
-      <span className="material-symbols-outlined">{ icon }</span>
+      <span className="material-symbols-outlined">{icon}</span>
     </div>
   )
 }

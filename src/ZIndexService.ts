@@ -8,7 +8,7 @@ export class ZIndexService {
   receiveNextZIndex(): number {
     const zIndex = this.#nextZIndex
     this.#nextZIndex++
-    localStorage.setItem('nextZIndex', String(this.#nextZIndex))
+    localStorage.setItem("nextZIndex", String(this.#nextZIndex))
     return zIndex
   }
 }

@@ -5,14 +5,17 @@ import { useNavigate } from "react-router-dom"
 export function useRedirectWhenLoggedIn(): void {
   const navigate = useNavigate()
 
-  useEffect(function redirectWhenLoggedOut() {
-    const auth = getAuth()
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        navigate("/")
-      }
-    })
+  useEffect(
+    function redirectWhenLoggedOut() {
+      const auth = getAuth()
+      const unsubscribe = onAuthStateChanged(auth, (user) => {
+        if (user) {
+          navigate("/")
+        }
+      })
 
-    return unsubscribe
-  }, [navigate])
+      return unsubscribe
+    },
+    [navigate]
+  )
 }

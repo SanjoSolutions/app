@@ -1,6 +1,11 @@
 import { getAuth, onAuthStateChanged } from "firebase/auth"
 import {
-  addDoc, collection, doc, getFirestore, setDoc, updateDoc,
+  addDoc,
+  collection,
+  doc,
+  getFirestore,
+  setDoc,
+  updateDoc,
 } from "firebase/firestore"
 import { useCallback, useEffect, useState } from "react"
 import { createPortal } from "react-dom"
@@ -32,7 +37,7 @@ export function TopNavigation() {
         openDocumentID: documentReference.id,
       })
     } catch (error: any) {
-      if (error.code === 'not-found') {
+      if (error.code === "not-found") {
         await setDoc(userDocumentReference, {
           openDocumentID: documentReference.id,
         })
@@ -42,8 +47,8 @@ export function TopNavigation() {
     }
   }, [])
 
-  const [isShareDocumentModalShown, setIsShareDocumentModalShown] = useState<boolean>(
-    false)
+  const [isShareDocumentModalShown, setIsShareDocumentModalShown] =
+    useState<boolean>(false)
 
   const onShareDocument = useCallback(function onShareDocument() {
     setIsShareDocumentModalShown(true)
@@ -57,36 +62,48 @@ export function TopNavigation() {
             <button
               type="button"
               className="btn btn-primary"
-              onClick={ onCreateDocument }
-            >Create document
+              onClick={onCreateDocument}
+            >
+              Create document
             </button>
           </div>
           <div className="col-6 text-end">
-            { !isLoggedIn && <a
-              href="/log-in"
-              className="btn btn-outline-secondary"
-            >Log in
-            </a> }
-            { !isLoggedIn &&
-              <a href="/sign-up" className="btn btn-outline-secondary ms-2">Sign
-                up</a> }
-            { isLoggedIn && <button
-              type="button"
-              className="btn btn-outline-secondary ms-2"
-              onClick={ onShareDocument }
-            >Share document</button> }
-            { isLoggedIn && <a
-              href="/create-group"
-              className="btn btn-outline-secondary ms-2"
-            >Create group</a> }
+            {!isLoggedIn && (
+              <a href="/log-in" className="btn btn-outline-secondary">
+                Log in
+              </a>
+            )}
+            {!isLoggedIn && (
+              <a href="/sign-up" className="btn btn-outline-secondary ms-2">
+                Sign up
+              </a>
+            )}
+            {isLoggedIn && (
+              <button
+                type="button"
+                className="btn btn-outline-secondary ms-2"
+                onClick={onShareDocument}
+              >
+                Share document
+              </button>
+            )}
+            {isLoggedIn && (
+              <a
+                href="/create-group"
+                className="btn btn-outline-secondary ms-2"
+              >
+                Create group
+              </a>
+            )}
           </div>
         </div>
       </div>
 
-      { isShareDocumentModalShown && createPortal(
-        <ShareDocument onClose={ () => setIsShareDocumentModalShown(false) } />,
-        document.body,
-      ) }
+      {isShareDocumentModalShown &&
+        createPortal(
+          <ShareDocument onClose={() => setIsShareDocumentModalShown(false)} />,
+          document.body
+        )}
     </header>
   )
 }

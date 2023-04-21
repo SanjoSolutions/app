@@ -1,4 +1,5 @@
-.navigation .nav-link:focus, .navigation .nav-link:hover {
+.navigation .nav-link:focus,
+.navigation .nav-link:hover {
   color: white;
   background-color: #0d6efd;
 }

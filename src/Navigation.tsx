@@ -6,19 +6,23 @@ import * as bootstrap from "bootstrap"
 export function Navigation({ addBox }: { addBox: () => void }) {
   const ref = useRef<HTMLDivElement>(null)
 
-  useEffect(function initialize() {
-    const tooltipTriggerList = Array.from(ref.current!.querySelectorAll(
-      "[data-bs-toggle=\"tooltip\"]"))
-    tooltipTriggerList.forEach(tooltipTriggerEl => {
-      new bootstrap.Tooltip(tooltipTriggerEl)
-    })
-  }, [ref])
+  useEffect(
+    function initialize() {
+      const tooltipTriggerList = Array.from(
+        ref.current!.querySelectorAll('[data-bs-toggle="tooltip"]')
+      )
+      tooltipTriggerList.forEach((tooltipTriggerEl) => {
+        new bootstrap.Tooltip(tooltipTriggerEl)
+      })
+    },
+    [ref]
+  )
 
   return (
     <div
-      ref={ ref }
+      ref={ref}
       className="navigation d-flex flex-column flex-shrink-0 bg-body-tertiary"
-      style={ { width: "4.5rem" } }
+      style={{ width: "4.5rem" }}
     >
       <ul className="nav nav-pills nav-flush flex-column mb-auto text-center">
         <li className="nav-item">
@@ -30,14 +34,14 @@ export function Navigation({ addBox }: { addBox: () => void }) {
             data-bs-placement="right"
             aria-label="Square"
             data-bs-original-title="Square"
-            onClick={ () => {
+            onClick={() => {
               addBox()
-            } }
+            }}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              width={ 16 }
-              height={ 16 }
+              width={16}
+              height={16}
               fill="currentColor"
               className="bi bi-square"
               viewBox="0 0 16 16"
@@ -46,7 +50,7 @@ export function Navigation({ addBox }: { addBox: () => void }) {
             </svg>
           </a>
         </li>
-        { /*<li>
+        {/*<li>
           <a
             href="#"
             className="nav-link py-3 border-bottom rounded-0"

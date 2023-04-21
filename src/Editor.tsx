@@ -1,6 +1,10 @@
 import { getAuth, onAuthStateChanged } from "firebase/auth"
 import {
-  collection, CollectionReference, doc, getFirestore, onSnapshot,
+  collection,
+  CollectionReference,
+  doc,
+  getFirestore,
+  onSnapshot,
 } from "firebase/firestore"
 import { useCallback, useEffect, useState } from "react"
 import { App } from "./App.jsx"
@@ -25,44 +29,51 @@ export function Editor() {
 
     async function updateBoxesAsync() {
       const auth = getAuth()
-      unsubscribeFromAuthStateChanged = onAuthStateChanged(auth, async (user) => {
-        if (unsubscribeUserDocument) {
-          unsubscribeUserDocument()
-          unsubscribeUserDocument = null
-        }
-        if (unsubscribeBoxes) {
-          unsubscribeBoxes()
-          unsubscribeBoxes = null
-        }
+      unsubscribeFromAuthStateChanged = onAuthStateChanged(
+        auth,
+        async (user) => {
+          if (unsubscribeUserDocument) {
+            unsubscribeUserDocument()
+            unsubscribeUserDocument = null
+          }
+          if (unsubscribeBoxes) {
+            unsubscribeBoxes()
+            unsubscribeBoxes = null
+          }
 
-        if (user) {
-          const db = getFirestore(app)
-          const userDocumentRef = doc(db, "users", user!.uid)
-          unsubscribeUserDocument =
-            onSnapshot(userDocumentRef, userDocumentSnapshot => {
-              if (unsubscribeBoxes) {
-                unsubscribeBoxes()
-                unsubscribeBoxes = null
-              }
+          if (user) {
+            const db = getFirestore(app)
+            const userDocumentRef = doc(db, "users", user!.uid)
+            unsubscribeUserDocument = onSnapshot(
+              userDocumentRef,
+              (userDocumentSnapshot) => {
+                if (unsubscribeBoxes) {
+                  unsubscribeBoxes()
+                  unsubscribeBoxes = null
+                }
 
-              const userDocument = userDocumentSnapshot.data()
-              const openDocumentID = userDocument!.openDocumentID
-              if (openDocumentID) {
-                const db = getFirestore(app)
-                const boxesReference = collection(
-                  db,
-                  COLLECTION_NAME,
-                  openDocumentID,
-                  "boxes",
-                ) as CollectionReference<BoxInterface>
-                unsubscribeBoxes =
-                  onSnapshot(boxesReference, (querySnapshot) => {
-                    setBoxes(querySnapshot.docs.map(doc => doc.data()))
-                  })
+                const userDocument = userDocumentSnapshot.data()
+                const openDocumentID = userDocument!.openDocumentID
+                if (openDocumentID) {
+                  const db = getFirestore(app)
+                  const boxesReference = collection(
+                    db,
+                    COLLECTION_NAME,
+                    openDocumentID,
+                    "boxes"
+                  ) as CollectionReference<BoxInterface>
+                  unsubscribeBoxes = onSnapshot(
+                    boxesReference,
+                    (querySnapshot) => {
+                      setBoxes(querySnapshot.docs.map((doc) => doc.data()))
+                    }
+                  )
+                }
               }
-            })
+            )
+          }
         }
-      })
+      )
     }
 
     updateBoxesAsync()
@@ -80,47 +91,49 @@ export function Editor() {
     }
   }, [])
 
-  const onChange = useCallback(async function onChange(box: BoxInterface) {
-    const updatedBoxes = Array.from(boxes)
-    const index = updatedBoxes.findIndex(box2 => box2.id === box.id)
-    updatedBoxes.splice(index, 1, box)
+  const onChange = useCallback(
+    async function onChange(box: BoxInterface) {
+      const updatedBoxes = Array.from(boxes)
+      const index = updatedBoxes.findIndex((box2) => box2.id === box.id)
+      updatedBoxes.splice(index, 1, box)
 
-    setBoxes(updatedBoxes)
+      setBoxes(updatedBoxes)
 
-    const openDocumentID = await retrieveOpenDocumentID()
-    if (openDocumentID) {
-      persistenceService.saveBox(openDocumentID, box)
-    }
-  }, [boxes])
+      const openDocumentID = await retrieveOpenDocumentID()
+      if (openDocumentID) {
+        persistenceService.saveBox(openDocumentID, box)
+      }
+    },
+    [boxes]
+  )
 
-  const addBox = useCallback(async function addBox() {
-    const box = {
-      id: String(nextID++),
-      color: "#156e0c",
-      x: "calc(4.5rem + 0.5rem)",
-      y: "0.5rem",
-      zIndex: 0,
-    }
-    localStorage.setItem("nextID", String(nextID))
-    const updatedBoxes = [
-      ...boxes, box,
-    ]
-    setBoxes(updatedBoxes)
+  const addBox = useCallback(
+    async function addBox() {
+      const box = {
+        id: String(nextID++),
+        color: "#156e0c",
+        x: "calc(4.5rem + 0.5rem)",
+        y: "0.5rem",
+        zIndex: 0,
+      }
+      localStorage.setItem("nextID", String(nextID))
+      const updatedBoxes = [...boxes, box]
+      setBoxes(updatedBoxes)
 
-    const openDocumentID = await retrieveOpenDocumentID()
-    if (openDocumentID) {
-      persistenceService.saveBox(openDocumentID, box)
-    }
-  }, [boxes])
+      const openDocumentID = await retrieveOpenDocumentID()
+      if (openDocumentID) {
+        persistenceService.saveBox(openDocumentID, box)
+      }
+    },
+    [boxes]
+  )
 
   return (
     <App>
-      <Navigation addBox={ addBox } />
-      { boxes.map(box => <Box
-        key={ box.id }
-        box={ box }
-        onChange={ onChange }
-      />) }
+      <Navigation addBox={addBox} />
+      {boxes.map((box) => (
+        <Box key={box.id} box={box} onChange={onChange} />
+      ))}
     </App>
   )
 }

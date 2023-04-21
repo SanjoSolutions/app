@@ -6,21 +6,24 @@ import { useRedirectWhenLoggedIn } from "./useRedirectWhenLoggedIn.js"
 export function SignUp() {
   const form = useRef<HTMLFormElement>(null)
 
-  const onSubmit = useCallback(async function onSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault()
+  const onSubmit = useCallback(
+    async function onSubmit(event: FormEvent<HTMLFormElement>) {
+      event.preventDefault()
 
-    const auth = getAuth()
-    const formData = new FormData(form.current!)
-    try {
-      await createUserWithEmailAndPassword(
-        auth,
-        formData.get("email") as string,
-        formData.get("password") as string,
-      )
-    } catch (error) {
-      console.error(error)
-    }
-  }, [form])
+      const auth = getAuth()
+      const formData = new FormData(form.current!)
+      try {
+        await createUserWithEmailAndPassword(
+          auth,
+          formData.get("email") as string,
+          formData.get("password") as string
+        )
+      } catch (error) {
+        console.error(error)
+      }
+    },
+    [form]
+  )
 
   useRedirectWhenLoggedIn()
 
@@ -28,9 +31,10 @@ export function SignUp() {
     <App>
       <div className="container">
         <div className="mt-3 row justify-content-center">
-          <form ref={ form } onSubmit={ onSubmit } className="col-md-4">
+          <form ref={form} onSubmit={onSubmit} className="col-md-4">
             <div className="mb-3">
-              <label htmlFor="email" className="form-label">Email address
+              <label htmlFor="email" className="form-label">
+                Email address
               </label>
               <input
                 type="email"
@@ -40,7 +44,9 @@ export function SignUp() {
               />
             </div>
             <div className="mb-3">
-              <label htmlFor="password" className="form-label">Password</label>
+              <label htmlFor="password" className="form-label">
+                Password
+              </label>
               <input
                 type="password"
                 className="form-control"
@@ -48,8 +54,8 @@ export function SignUp() {
                 name="password"
               />
             </div>
-            <button type="submit" className="btn btn-primary float-end">Sign
-              up
+            <button type="submit" className="btn btn-primary float-end">
+              Sign up
             </button>
           </form>
         </div>

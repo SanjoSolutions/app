@@ -1,7 +1,7 @@
-import { PersistenceService } from './PersistenceService.js'
-import { ZIndexService } from './ZIndexService.js'
+import { PersistenceService } from "./PersistenceService.js"
+import { ZIndexService } from "./ZIndexService.js"
 
-let initialZIndex: any = localStorage.getItem('nextZIndex')
+let initialZIndex: any = localStorage.getItem("nextZIndex")
 if (initialZIndex) {
   initialZIndex = parseInt(initialZIndex, 10)
 }

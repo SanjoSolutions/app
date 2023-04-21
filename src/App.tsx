@@ -10,8 +10,8 @@ export function App({ children }: AppProps) {
     <div>
       <TopNavigation />
 
-      <main className="d-flex flex-nowrap" style={ { height: "100vh" } }>
-        { children }
+      <main className="d-flex flex-nowrap" style={{ height: "100vh" }}>
+        {children}
       </main>
     </div>
   )

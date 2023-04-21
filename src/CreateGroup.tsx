@@ -8,16 +8,12 @@ export function CreateGroup() {
     async function createGroupAsync() {
       const db = getFirestore(app)
       await addDoc(collection(db, "groups"), {
-        members: []
+        members: [],
       })
     }
 
     createGroupAsync()
   }, [])
 
-  return (
-    <App>
-
-    </App>
-  )
+  return <App></App>
 }

@@ -1,17 +1,15 @@
-import { Component, createRef } from 'react'
-import './Box.css'
-import { zIndexService } from './services.js'
-import { makeMovable } from './unnamed/makeMovable.js'
-import type { Box as BoxInterface } from './core/Box.js'
+import { Component, createRef } from "react"
+import "./Box.css"
+import { zIndexService } from "./services.js"
+import { makeMovable } from "./unnamed/makeMovable.js"
+import type { Box as BoxInterface } from "./core/Box.js"
 
 interface BoxProps {
   box: BoxInterface
   onChange: (box: BoxInterface) => void
 }
 
-interface BoxState {
-
-}
+interface BoxState {}
 
 export class Box extends Component<BoxProps, BoxState> {
   ref = createRef<HTMLDivElement>()
@@ -45,9 +43,14 @@ export class Box extends Component<BoxProps, BoxState> {
 
     return (
       <div
-        ref={ this.ref }
+        ref={this.ref}
         className="box"
-        style={ { backgroundColor: box.color, left: box.x, top: box.y, zIndex: box.zIndex } }
+        style={{
+          backgroundColor: box.color,
+          left: box.x,
+          top: box.y,
+          zIndex: box.zIndex,
+        }}
       ></div>
     )
   }
