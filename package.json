@@ -24,7 +24,9 @@
     "start": "react-app-rewired start",
     "build": "react-app-rewired build",
     "test": "react-app-rewired test",
-    "eject": "react-app-rewired eject"
+    "eject": "react-app-rewired eject",
+    "postinstall": "husky install",
+    "format": "lint-staged"
   },
   "eslintConfig": {
     "extends": [
@@ -46,6 +48,12 @@
   },
   "devDependencies": {
     "@types/bootstrap": "^5.2.6",
+    "husky": "^8.0.3",
+    "lint-staged": "^13.2.1",
+    "prettier": "^2.8.7",
     "react-app-rewired": "^2.2.1"
+  },
+  "lint-staged": {
+    "*.{ts,tsx,js,jsx,json,css,md}": "prettier --write"
   }
 }
