@@ -3,10 +3,36 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import * as React from 'react';
 import * as ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './App.jsx';
 // import reportWebVitals from './reportWebVitals.js';
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
+import {
+  createBrowserRouter,
+  RouterProvider,
+} from "react-router-dom";
+import { SignUp } from './SignUp.jsx';
+import { Editor } from './Editor.jsx';
+import { CreateGroup } from './CreateGroup.jsx';
+import { LogIn } from './LogIn.jsx';
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Editor />,
+  },
+  {
+    path: '/log-in',
+    element: <LogIn />
+  },
+  {
+    path: '/sign-up',
+    element: <SignUp />
+  },
+  {
+    path: "/create-group",
+    element: <CreateGroup />
+  }
+]);
 
 const firebaseConfig = {
   apiKey: "AIzaSyCYWFH7A-u7Z0gDItHboldGcZ-4ee0WSrM",
@@ -27,7 +53,7 @@ const db = getFirestore(app);
 const root = ReactDOM.createRoot(document.getElementById('root')!);
 root.render(
   <React.StrictMode>
-    <App />
+    <RouterProvider router={router} />
   </React.StrictMode>
 );
 
